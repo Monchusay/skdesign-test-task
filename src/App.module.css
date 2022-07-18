@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap');
+
+.App {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.MainArea {
+    width: 1440px;
+    height: 731px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
