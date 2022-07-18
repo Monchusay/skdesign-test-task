@@ -7,28 +7,20 @@ import { ReactComponent as ArrowDown } from "../../Data/Arrow.svg";
 import preloader from "../../Data/preloader.svg";
 
 const RequestField = (props) => {
-
   const [showedExtraFields, setShowedExtraFields] = useState(false);
   const [isNameValid, setIsNameValid] = useState(null);
   const [isPhoneValid, setIsPhoneValid] = useState(null);
   const [isProfileLinkValid, setIsProfileLinkValid] = useState(null);
   const [isEmailValid, setIsEmailValid] = useState(null);
   const [isCityValid, setIsCityValid] = useState(null);
-  const [isAllFieldsValid, setIsAllFieldsValid] = useState(null);
   const [cityValue, setCityValue] = useState();
   const [sourceValue, setSourceValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const validationCheck = () => {
-    isNameValid & isPhoneValid & isProfileLinkValid & isEmailValid & isCityValid
-      ? setIsAllFieldsValid(true)
-      : setIsAllFieldsValid(false);
-  };
   const onSettingName = (e) => {
     let sendingName = e.target.value;
     props.setName(sendingName);
     sendingName.length > 2 ? setIsNameValid(true) : setIsNameValid(false);
-    validationCheck();
   };
 
   const onSubmitRequest = () => {
@@ -36,7 +28,6 @@ const RequestField = (props) => {
     setTimeout(() => {
       setIsLoading(false);
       console.log(JSON.stringify(props.requestForm));
-      setIsAllFieldsValid(null);
       props.setName("");
       setIsNameValid(null);
       props.setPhoneNumber("");
@@ -96,7 +87,6 @@ const RequestField = (props) => {
       formattedSendingPhone = "+" + sendingPhone;
     }
     props.setPhoneNumber(formattedSendingPhone);
-    validationCheck();
   };
 
   const onSettingEmail = (e) => {
@@ -107,7 +97,6 @@ const RequestField = (props) => {
     !re.test(String(sendingEmail).toLowerCase())
       ? setIsEmailValid(false)
       : setIsEmailValid(true);
-    validationCheck();
   };
 
   const onSettingProfileLink = (e) => {
@@ -116,14 +105,12 @@ const RequestField = (props) => {
     sendingLink.length > 3
       ? setIsProfileLinkValid(true)
       : setIsProfileLinkValid(false);
-    validationCheck();
   };
 
   const onSettingCity = (type) => {
     props.setCity(type.value);
     setCityValue(type);
-    cityValue && setIsCityValid(true);
-    validationCheck();
+    setIsCityValid(true);
   };
   const onSettingSource = (type) => {
     props.setSource(type.value);
@@ -310,12 +297,24 @@ const RequestField = (props) => {
       )}
       <span
         className={
-          isAllFieldsValid
+          isNameValid &&
+          isPhoneValid &&
+          isProfileLinkValid &&
+          isCityValid &&
+          isEmailValid
             ? style.SendRequestButtonActive
             : style.SendRequestButtonDisabled
         }
         style={showedExtraFields ? { transform: "translateY(20px)" } : null}
-        onClick={isAllFieldsValid ? onSubmitRequest : null}
+        onClick={
+          isNameValid &&
+          isPhoneValid &&
+          isProfileLinkValid &&
+          isCityValid &&
+          isEmailValid
+            ? onSubmitRequest
+            : null
+        }
       >
         {isLoading ? (
           <img src={preloader} style={{ width: 30 + "px" }} />
