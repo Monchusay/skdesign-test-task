@@ -85,6 +85,7 @@ const RequestField = (props) => {
       }
     } else {
       formattedSendingPhone = "+" + sendingPhone;
+      formattedSendingPhone.length > 10 && setIsPhoneValid(true)
     }
     props.setPhoneNumber(formattedSendingPhone);
   };
