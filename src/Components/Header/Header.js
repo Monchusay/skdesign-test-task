@@ -8,7 +8,7 @@ const Header = () => {
       <Logo />
       <div className={style.HeaderTextArea}>
         <p className={style.HeaderText}>
-          Оставьте заявку и станьте частью нашей команды
+          Оставьте заявку и станьте частью нашей команды DSFSEFSDFSEFsfe
         </p>
         <p className={style.HeaderContent}>
           Компания SK Design приглашает к взаимовыгодному сотрудничеству
